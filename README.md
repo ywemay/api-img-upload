@@ -4,6 +4,8 @@ A class that helps to simplify the creation of an image upload endpoint for an A
 
 ## Usage
 
+### Approach 1
+
 Create a controller derivated from ImageUpload:
 
 ```js
@@ -56,4 +58,21 @@ const Upload = require('./upload');
 const app = express();
 config(app);
 Upload.config(app);
+```
+
+### Approach 2
+
+```js 
+const { config } = require('ywemay-api-img-upload');
+
+const app = express();
+const fooPath = __dirname + '/uploads/foo';
+
+app.post('/upload/foo', 
+  uploadImage({path: fooPath}),
+  makeThumb({subDir: 'thumbnails', size: { w: 160, h: 160}}),
+  sendResult);
+
+app.get('/img/foo/:fileName', viewImage({path: fooPath}));
+app.get('/img/foo/th/:fileName', viewImage({path: fooPath + '/thumbnails'}));
 ```

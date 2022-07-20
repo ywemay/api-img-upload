@@ -7,9 +7,9 @@ const server = require('./server');
 
 exports.server = server;
 
-exports.checkView = ({done, fileName, status = 200}) => {
+exports.checkView = ({done, uri = '/img/example/', fileName, status = 200}) => {
   chai.request(server)
-  .get('/img/example/' + fileName)
+  .get(uri + fileName)
   .end((err, res) => {
     if (!err) {
       res.status.should.be.eq(status);
@@ -21,9 +21,9 @@ exports.checkView = ({done, fileName, status = 200}) => {
   })
 }
 
-exports.checkUpload = ({done, fileName, status = 200}) => {
+exports.checkUpload = ({done, uri = '/upload/example', fileName, status = 200}) => {
   chai.request(server)
-  .post('/upload/example')
+  .post(uri)
   .set({
     'Content-Type': 'multipart/form-data'
   })

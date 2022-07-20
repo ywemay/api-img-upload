@@ -49,7 +49,6 @@ class ImageUpload {
         });
       } else {
         const { path, onUpload } = this.params;
-        console.log('uploadImage, path', path);
         let file = req.files.file;
         let finalFileName = file.name;
         if (!file) return res.status(500).send({status: false, message: 'No file key found in files'});
